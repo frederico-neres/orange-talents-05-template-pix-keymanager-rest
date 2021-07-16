@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 
 @ValidaChavePix
 @Introspected
-data class RegistraChaveRequest(
+class RegistraChaveRequest(
     @field:NotNull val tipoChave: TipoChave,
     @field:NotBlank val chave: String,
     @field:NotNull val tipoConta: TipoConta
