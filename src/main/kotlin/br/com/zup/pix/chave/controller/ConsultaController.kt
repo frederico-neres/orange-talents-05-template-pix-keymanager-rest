@@ -31,7 +31,7 @@ class ConsultaController(
     }
 
     @Get("/pix")
-    fun consultaTodas(@PathVariable clienteId: String): HttpResponse<ListaChaveResponse>? {
+    fun consultaTodas(@PathVariable clienteId: String): HttpResponse<ListaChaveResponse> {
         val responseKeyManagerConsulta = keyManagerConsulta.consultaTodas(ListaChavePixRequest.newBuilder()
             .setClientId(clienteId)
             .build())

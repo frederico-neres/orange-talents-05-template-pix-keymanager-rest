@@ -7,21 +7,33 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 @Introspected
-class ListaChaveResponse(
-    consultaChavePixResponse: ListaChavePixResponse
+data class ListaChaveResponse(
+    val clienteId: String,
+    val chavesPix: List<DetalhesChaveResponse>
 ) {
-    val clienteId: String = consultaChavePixResponse.clientId
-    val chavesPix = consultaChavePixResponse.chavesPixList.map { DetalhesChaveResponse(it) }
+
+    constructor(consultaChavePixResponse: ListaChavePixResponse):
+            this(consultaChavePixResponse.clientId,
+                consultaChavePixResponse.chavesPixList.map { DetalhesChaveResponse(it, consultaChavePixResponse.clientId) })
+
 }
 
-class DetalhesChaveResponse(detalhesChave: ListaChavePixResponse.DetalhesChave) {
+data class DetalhesChaveResponse(
+    val pixId: String,
+    val clienteId: String,
+    val tipoDeChave: TipoChave,
+    val chave: String,
+    var tipoDaConta: TipoConta,
+    val criadaEm: LocalDateTime
+) {
 
-    val clientId: String = ""
-    val pixId: String = ""
-    val tipoDeChave: TipoChave = TipoChave.valueOf(detalhesChave.tipoChave.name)
-    val chave: String = detalhesChave.chave;
-    var tipoDaConta: TipoConta = TipoConta.valueOf(detalhesChave.tipoConta.name)
-    val criadaEm = detalhesChave.criadoEm.let {
+    constructor(detalhesChave: ListaChavePixResponse.DetalhesChave, clienteId: String): this(
+        pixId = detalhesChave.pixId,
+        clienteId = clienteId,
+        tipoDeChave = TipoChave.valueOf(detalhesChave.tipoChave.name),
+        chave  = detalhesChave.chave,
+        tipoDaConta = TipoConta.valueOf(detalhesChave.tipoConta.name),
+        criadaEm = detalhesChave.criadoEm.let {
         LocalDateTime.ofInstant(Instant.ofEpochSecond(it.seconds, it.nanos.toLong()), ZoneOffset.UTC)
-    }
+    })
 }
