@@ -1,7 +1,9 @@
 package br.com.zup.pix.compartilhado
 
+import br.com.zup.ConsultaChavePixResponse
 import br.com.zup.RegistrarChavePixResponse
 import br.com.zup.RemoveChavePixResponse
+import br.com.zup.pix.chave.ConsultaChaveResponse
 import br.com.zup.pix.chave.RegistraChaveResponse
 import br.com.zup.pix.chave.RemoveChaveResponse
 import java.util.*
@@ -22,3 +24,7 @@ fun RemoveChavePixResponse.toRemoveChaveResponse(): RemoveChaveResponse {
         clienteId = UUID.fromString(this.clienteId),
     )
 }
+fun ConsultaChavePixResponse.toConsultaChaveResponse(): ConsultaChaveResponse {
+    return ConsultaChaveResponse(this)
+}
+
