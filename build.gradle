@@ -53,6 +53,8 @@ java {
 
 tasks {
     compileKotlin {
+//      Que os jar kotlin-dsl não incluam entradas duplicadas
+//        destinationDir = compileJava.destinationDir
         kotlinOptions {
             jvmTarget = "11"
         }
@@ -65,6 +67,7 @@ tasks {
 
 
 }
+
 sourceSets {
     main {
         java {

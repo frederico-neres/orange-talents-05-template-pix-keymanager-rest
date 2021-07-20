@@ -43,7 +43,6 @@ internal class RegistraControllerTest(
 
     @BeforeEach
     internal fun setUp() {
-        Mockito.reset(clientGrpc)
         clienteId = UUID.randomUUID().toString()
         pixId = UUID.randomUUID().toString()
     }
@@ -98,9 +97,9 @@ internal class RegistraControllerTest(
 
     @Factory
     @Replaces(factory = KeyManagerGrpcFactory::class)
-    internal class MockitoStubFactory {
+    internal class RegistraMockitoStubFactory {
         @Singleton
-        fun stubMock() = Mockito.mock(KeyManagerGrpcServiceGrpc.
+        fun stubMockRegistra() = Mockito.mock(KeyManagerGrpcServiceGrpc.
         KeyManagerGrpcServiceBlockingStub::class.java)
     }
 }
